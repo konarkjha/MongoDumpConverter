@@ -18,7 +18,7 @@ if __name__ == '__main__':
         os.mkdir(item)
         for colection in d[item]:
             print (">>>>>>>",colection)
-            database = client['product-management']
+            database = client[item]
             col = getattr(database,colection) #Here colection is my collection
             print(col)
             array = list(col.find())
