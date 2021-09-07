@@ -10,11 +10,12 @@ class JSONEncoder(json.JSONEncoder):
             return str(o)
         return json.JSONEncoder.default(self, o)
 if __name__ == '__main__':
+    databaseList = ['subject-areas','product-management']
     client = pymongo.MongoClient("localhost", 27017, maxPoolSize=50)
     d = dict((db, [collection for collection in client[db].list_collection_names()])
              for db in client.list_database_names())
     print (json.dumps(d))
-    for item in ['subject-areas','product-management']:
+    for item in databaseList:
         os.mkdir(item)
         for colection in d[item]:
             print (">>>>>>>",colection)
