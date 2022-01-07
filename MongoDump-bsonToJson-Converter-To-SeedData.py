@@ -10,8 +10,8 @@ class JSONEncoder(json.JSONEncoder):
             return str(o)
         return json.JSONEncoder.default(self, o)
 if __name__ == '__main__':
-    databaseList = ['subject-areas','product-management']
-    client = pymongo.MongoClient("localhost", 27017, maxPoolSize=50)
+    databaseList = ['subject-areas','product-management'] # Put database name here or add prompt.
+    client = pymongo.MongoClient("localhost", 27017, maxPoolSize=100)
     d = dict((db, [collection for collection in client[db].list_collection_names()])
              for db in client.list_database_names())
     print (json.dumps(d))
@@ -24,8 +24,9 @@ if __name__ == '__main__':
             print(col)
             array = list(col.find())
             # make db folder
-            print(json.dumps(array, default=str))
+            # print(json.dumps(array, default=str))
             dbName =str(item)
             with open('% s/% s.json' % (dbName,colection), 'w') as f:
-                f.write(json.dumps(array, default=str))
+                # f.write(json.dumps(array, default=str))
+                json.dump(array, f, default=str, indent=4)
                 print('DONE!!!!!!!!!!')
